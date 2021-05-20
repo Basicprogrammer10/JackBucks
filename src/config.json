@@ -1,0 +1,18 @@
+{
+  "bot": {
+    "clientId": "",
+    "botName": "TempBotName",
+    "adminId": "466967710685855744",
+    "version": "0.0.01",
+    "activity": "?help",
+    "commandPrefix": "?",
+    "disabledCommands": []
+  },
+  "data": {
+    "dataFile": "data/bank.json"
+  },
+  "bank": {
+    "currency": "",
+    "startingValue": 100
+  }
+}
