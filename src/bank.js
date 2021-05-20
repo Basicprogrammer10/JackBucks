@@ -9,6 +9,11 @@ module.exports = {
         let data = JSON.parse(fs.readFileSync(file).toString());
         return data[user]
     },
+    addBalance: function (file, user, inc) {
+        let data = JSON.parse(fs.readFileSync(file).toString());
+        data[user].money += parseInt(inc);
+        fs.writeFileSync(file, JSON.stringify(data));
+    },
     initUser: function (file, user) {
         let data = JSON.parse(fs.readFileSync(file).toString());
         data[user] = {money: config.bank.startingValue, init: true};
