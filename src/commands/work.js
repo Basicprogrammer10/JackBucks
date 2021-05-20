@@ -17,9 +17,7 @@ module.exports = {
             if (hash === command[1]) {
                 let payOut = Math.floor(Math.random() * 10) + 1;
                 msg.channel.send(common.embedMessage(color.main, '🧭 Work', `Hooray! You got it correct!\n ${payOut} ➜ ${msg.author.tag}`));
-                global.workHashes = global.workHashes.filter((value) => {
-                    value !== hash
-                });
+                global.workHashes = global.workHashes.filter((value) => {value !== hash});
                 bank.addBalance(config.data.dataFile, msg.author.tag, payOut);
                 return
             }

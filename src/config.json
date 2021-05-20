@@ -1,9 +1,9 @@
 {
   "bot": {
     "clientId": "",
-    "botName": "TempBotName",
+    "botName": "Supreme Bank",
     "adminId": "466967710685855744",
-    "version": "0.0.01",
+    "version": "0.1.02",
     "activity": "?help",
     "commandPrefix": "?",
     "disabledCommands": []
