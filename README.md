@@ -1,2 +1,2 @@
-# JackBucks
+# SupremeBank
 💵💵💵💵💵
