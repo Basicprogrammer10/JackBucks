@@ -45,7 +45,8 @@ client.on("message", async (msg) => {
 common.loadConfig('config.json');
 
 /* Commands To Add
- * TaxDay
  * Bet
  * Steal
  */
+
+// https://github.com/TomPrograms/stormdb?

@@ -15,6 +15,9 @@ module.exports = {
                 return;
             }
             if (hash === command[1]) {
+                common.initUserNotInDb(config.data.dataFile, msg.author.tag, (newUser) => {
+                    if (newUser) msg.channel.send(common.embedMessage(color.main, '💰 Bank', `Your bank account has been created!`));
+                });
                 let payOut = Math.floor(Math.random() * 10) + 1;
                 msg.channel.send(common.embedMessage(color.main, '🧭 Work', `Hooray! You got it correct!\n ${payOut} ➜ ${msg.author.tag}`));
                 global.workHashes = global.workHashes.filter((value) => {value !== hash});

@@ -1,4 +1,5 @@
 const Discord = require("discord.js");
+const bank = require('./bank.js')
 const fs = require("fs");
 
 function compareTwoStrings(first, second) {
@@ -76,5 +77,14 @@ module.exports = {
     isNumeric: function(str) {
         if (typeof str != "string") return false
         return !isNaN(str) && !isNaN(parseFloat(str))
+    },
+
+    initUserNotInDb: function (dataFile, tag, callback) {
+        if (!bank.isUserInDb(dataFile, tag)) {
+            bank.initUser(dataFile, tag);
+            callback(true)
+            return
+        }
+        callback(false)
     }
 }
