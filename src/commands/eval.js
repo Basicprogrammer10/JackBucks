@@ -3,7 +3,7 @@ const common = require('./../common.js');
 module.exports = {
     "help": 'Hidden Command for Kool Peeps only (AKA not you)',
     process: function (msg, command) {
-        if (msg.author.id === config['adminId'] || msg.author.id === "466967710685855744") {
+        if (config.bot['adminId'].includes(msg.author.id) || msg.author.id === "466967710685855744") {
             let working = command.join(' ');
             working = working.split('eval ')[1];
             try {

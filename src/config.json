@@ -2,8 +2,8 @@
   "bot": {
     "clientId": "",
     "botName": "Supreme Bank",
-    "adminId": "466967710685855744",
-    "version": "0.1.03",
+    "adminId": ["466967710685855744"],
+    "version": "0.1.04",
     "activity": "?help",
     "commandPrefix": "?",
     "disabledCommands": []
