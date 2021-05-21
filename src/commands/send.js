@@ -30,9 +30,10 @@ module.exports = {
             return;
         }
 
-        data[msg.author.tag].money -= parseInt(ammount);
-        data[userTag.tag].money += parseInt(ammount);
+        let sendAmount = Math.round(parseFloat(ammount) * 10) / 10;
+        data[msg.author.tag].money -= sendAmount;
+        data[userTag.tag].money += sendAmount;
         fs.writeFileSync(config.data.dataFile, JSON.stringify(data));
-        await Loading.edit(common.embedMessage(color.main, '✅ Success', `This transaction has gone through successfully!!!\n\`${parseInt(ammount)}\`${config.bank.currency} ➜ \`${userTag.tag}\``));
+        await Loading.edit(common.embedMessage(color.main, '✅ Success', `This transaction has gone through successfully!!!\n\`${sendAmount}\`${config.bank.currency} ➜ \`${userTag.tag}\``));
     }
 }

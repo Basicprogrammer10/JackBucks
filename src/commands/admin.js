@@ -42,6 +42,20 @@ subCommands = {
         else data[userTag.tag].money = parseInt(amount);
         fs.writeFileSync(config.data.dataFile, JSON.stringify(data));
         msg.channel.send(common.embedMessage(color.main, '✅ Success', `This transaction has gone through successfully!!!\n\`${parseInt(amount)}\`${config.bank.currency} ➜ \`${userTag.tag}\``));
+    },
+    taxday: function (msg, command) {
+        let tax = command[2];
+        if (!common.isNumeric(tax)) {
+            msg.channel.send(common.embedMessage(color.red, '🛑 Error', `Invalid tax amount of\`${tax}\``));
+            return;
+        }
+        msg.channel.send(common.embedMessage(color.main, '🧮 **TAX DAY**', `Everyone pays \`${tax}%\`!!!`))
+        let data = JSON.parse(fs.readFileSync(config.data.dataFile).toString());
+        tax = parseFloat(tax) / 100
+        Object.keys(data).forEach((item, index) => {
+            data[item].money = Math.round(data[item].money - (data[item].money * tax) * 10) / 10;
+        })
+        fs.writeFileSync(config.data.dataFile, JSON.stringify(data));
     }
 }
 
