@@ -24,13 +24,29 @@ module.exports = {
             msg.channel.send(common.embedMessage(color.help, '🧭 Work', `Nope! Try again`));
             return
         }
-        let operations = ['÷', '×', '+', '-'];
+        const operations = ['÷', '×', '+', '-'];
+        let mathNums = [Math.floor(Math.random() * 1000), Math.floor(Math.random() * 1000)];
         let opIndex = Math.floor(Math.random() * operations.length);
-        let work = `${Math.floor(Math.random() * 1000)}${operations[opIndex]}${Math.floor(Math.random() * 1000)}`;
-        let asciiWork = work.replace('×', '*').replace('÷', '/');
+        let work = `${mathNums[0]}${operations[opIndex]}${mathNums[1]}`;
+        let correct;
+
+        switch (opIndex) {
+            case 0:
+                correct = Math.round(mathNums[0] / mathNums[1] * 10) / 10
+                break
+            case 1:
+                correct = mathNums[0] * mathNums[1]
+                break
+            case 2:
+                correct = mathNums[0] + mathNums[1]
+                break
+            case 3: correct = mathNums[0] - mathNums[1]
+                break
+        }
+        console.log(correct);
 
         let shaSum = crypto.createHash('sha1')
-        shaSum.update((Function(`return Math.round(${asciiWork} * 10) / 10;`))().toString())
+        shaSum.update(correct.toString())
         let hash = shaSum.digest('hex').substring(0, 5);
 
         if (typeof global.workHashes === 'undefined') global.workHashes = [];

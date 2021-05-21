@@ -1,2 +1,2 @@
-# SupremeBank
+# SupremeBank (The Discord Bot)
 💵💵💵💵💵
