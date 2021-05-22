@@ -6,22 +6,21 @@ module.exports = {
     "usage": 'balance [@user]',
     process: function (msg) {
         let userTag = msg.mentions.users.first();
+        let Bank = new bank(config.data.dataFile);
         if (typeof userTag !== 'undefined') {
-            let userBankData = bank.getBalance(config.data.dataFile, userTag.tag);
-            if (userBankData === undefined) {
+            if (!Bank.isUserInDb(userTag.tag)) {
                 msg.channel.send(common.embedMessage(color.main, "💸 Balance", `\`${userTag.tag}\` has not been registered...`));
                 return
             }
-            msg.channel.send(common.embedMessage(color.main, "💸 Balance", `\`${userTag.tag}\`'s balance is \`${userBankData.money}\`${config.bank.currency}`));
+            msg.channel.send(common.embedMessage(color.main, "💸 Balance", `\`${userTag.tag}\`'s balance is \`${Bank.getBalance(userTag.tag)}\`${config.bank.currency}`));
             return;
         }
-        let userBankData = bank.getBalance(config.data.dataFile, msg.author.tag);
-        if (userBankData === undefined) {
+        if (Bank.getBalance(msg.author.tag) === undefined) {
             msg.channel.send(common.embedMessage(color.main, "💰 Bank", `Your Bank Account has been created!`));
-            bank.initUser(config.data.dataFile, msg.author.tag);
+            Bank.initUser(msg.author.tag);
             this.process(msg)
             return
         }
-        msg.channel.send(common.embedMessage(color.main, "💸 Balance", `You Balance is \`${userBankData.money}\`${config.bank.currency}`));
+        msg.channel.send(common.embedMessage(color.main, "💸 Balance", `You Balance is \`${Bank.getBalance(msg.author.tag)}\`${config.bank.currency}`));
     }
 }

@@ -1,11 +1,13 @@
 const common = require('./../common.js');
-const fs = require("fs");
+const bank = require('./../bank.js')
+//const fs = require("fs");
 
 module.exports = {
     "help": 'Shows top balance',
     "usage": 'baltop',
     process: function (msg) {
-        let data = JSON.parse(fs.readFileSync(config.data.dataFile).toString());
+        let Bank = new bank(config.data.dataFile)
+        let data = Bank.data;
         let top = [[0, ""], [0, ""], [0, ""]];
         let baltop = '```\n'
         for (let i in data) {

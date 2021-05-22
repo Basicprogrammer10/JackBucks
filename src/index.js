@@ -35,6 +35,7 @@ client.on("message", async (msg) => {
         msg.channel.send(common.embedMessage(color.help, 'Command Disabled by Admin', ''));
         return;
     }
+
     try {
         await client.commands.get(command[0].toLowerCase()).process(msg, command);
     } catch (e) {
@@ -48,5 +49,3 @@ common.loadConfig('config.json');
  * Bet
  * Steal
  */
-
-// https://github.com/TomPrograms/stormdb?

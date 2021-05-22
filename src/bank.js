@@ -1,22 +1,21 @@
 const fs = require("fs");
 
-module.exports = {
-    isUserInDb: function(file, user) {
-        let data = JSON.parse(fs.readFileSync(file).toString());
+module.exports = function (file) {
+    let data = JSON.parse(fs.readFileSync(file).toString());
+    this.data = data;
+    this.isUserInDb = function (user) {
         return user in data
+    };
+    this.initUser = function (user) {
+        data[user] = { money: config.bank.startingValue, init: true };
+    }
+    this.getBalance = function (user) {
+        return data[user].money
     },
-    getBalance: function (file, user) {
-        let data = JSON.parse(fs.readFileSync(file).toString());
-        return data[user]
-    },
-    addBalance: function (file, user, inc) {
-        let data = JSON.parse(fs.readFileSync(file).toString());
-        data[user].money += parseInt(inc);
-        fs.writeFileSync(file, JSON.stringify(data));
-    },
-    initUser: function (file, user) {
-        let data = JSON.parse(fs.readFileSync(file).toString());
-        data[user] = {money: config.bank.startingValue, init: true};
+        this.addBalance = function (user, inc) {
+            data[user].money += parseInt(inc);
+        };
+    this.save = function () {
         fs.writeFileSync(file, JSON.stringify(data));
     }
 }
