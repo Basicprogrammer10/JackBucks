@@ -2,8 +2,8 @@ const common = require('./../common.js');
 const bank = require('./../bank.js')
 
 module.exports = {
-    "help": 'Send money to another user',
-    "usage": 'send <@user> <money>',
+    help: 'Send money to another user',
+    usage: 'send <@user> <money>',
     process: async function (msg, command) {
         let Loading = await msg.channel.send(common.embedMessage(color.link, `📦 Loading...`, 'Hang Tight!'));
         let Bank = new bank(config.data.dataFile)
@@ -36,7 +36,7 @@ module.exports = {
             return;
         }
         if (Bank.getBalance(msg.author.tag) < parseInt(amount)) {
-            await Loading.edit(common.embedMessage(color.red, '🛑 Error', `💰💰 Lol you only have \`${data[msg.author.tag].money}\`${config.bank.currency}`));
+            await Loading.edit(common.embedMessage(color.red, '🛑 Error', `💰💰 Lol you only have \`${Bank.getBalance(msg.author.tag)}\`${config.bank.currency}`));
             return;
         }
 

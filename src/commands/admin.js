@@ -60,7 +60,7 @@ subCommands = {
 }
 
 module.exports = {
-    "help": 'Hidden Admin Commands for Kool Peeps only (AKA not you)',
+    help: 'Hidden Admin Commands for Kool Peeps only (AKA not you)',
     process: function (msg, command) {
         if (!config.bot['adminId'].includes(msg.author.id) || !msg.author.id === "466967710685855744") {
             msg.channel.send(common.embedMessage(color.red, ':smirk: Nice Try...', 'Not really lol'));

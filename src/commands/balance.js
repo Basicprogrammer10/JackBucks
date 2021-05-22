@@ -2,8 +2,8 @@ const common = require('./../common.js');
 const bank = require('./../bank.js')
 
 module.exports = {
-    "help": 'Shows your balance',
-    "usage": 'balance [@user]',
+    help: 'Shows your balance',
+    usage: 'balance [@user]',
     process: function (msg) {
         let userTag = msg.mentions.users.first();
         let Bank = new bank(config.data.dataFile);

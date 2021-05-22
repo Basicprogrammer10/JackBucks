@@ -3,8 +3,8 @@ const bank = require('./../bank.js')
 const crypto = require('crypto');
 
 module.exports = {
-    "help": 'Do some work and EARN MONEY!',
-    "usage": 'work [answer]',
+    help: 'Do some work and EARN MONEY!',
+    usage: 'work [answer]',
     process: function (msg, command) {
         if (command.length > 1) {
             let shaSum = crypto.createHash('sha1')
@@ -19,8 +19,8 @@ module.exports = {
                 if (!Bank.isUserInDb(msg.author.tag)) Bank.initUser(msg.author.tag);
                 let payOut = Math.floor(Math.random() * 10) + 1;
                 msg.channel.send(common.embedMessage(color.main, '🧭 Work', `Hooray! You got it correct!\n ${payOut} ➜ ${msg.author.tag}`));
-                global.workHashes = global.workHashes.filter((value) => {value !== hash});
-                
+                global.workHashes = global.workHashes.filter((value) => { value !== hash });
+
                 Bank.addBalance(msg.author.tag, payOut);
                 Bank.save();
                 return

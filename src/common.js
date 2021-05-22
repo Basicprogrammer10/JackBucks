@@ -40,7 +40,7 @@ global.color = {
 
 module.exports = {
     embedMessage: function (embedColor, title, text) {
-        return new Discord.MessageEmbed().setColor(embedColor).setTitle(title).setDescription(text)
+        return new Discord.MessageEmbed().setColor(embedColor).setTitle(title).setDescription(text || '')
     },
 
     loadConfig: function (configFile) {
@@ -64,17 +64,17 @@ module.exports = {
         for (let i = 0; i < targetStrings.length; i++) {
             const currentTargetString = targetStrings[i];
             const currentRating = compareTwoStrings(mainString, currentTargetString)
-            ratings.push({target: currentTargetString, rating: currentRating})
+            ratings.push({ target: currentTargetString, rating: currentRating })
             if (currentRating > ratings[bestMatchIndex].rating) {
                 bestMatchIndex = i
             }
         }
         const bestMatch = ratings[bestMatchIndex]
 
-        return {ratings: ratings, bestMatch: bestMatch, bestMatchIndex: bestMatchIndex};
+        return { ratings: ratings, bestMatch: bestMatch, bestMatchIndex: bestMatchIndex };
     },
 
-    isNumeric: function(str) {
+    isNumeric: function (str) {
         if (typeof str != "string") return false
         return !isNaN(str) && !isNaN(parseFloat(str))
     }

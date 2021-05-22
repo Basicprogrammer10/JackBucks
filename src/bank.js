@@ -8,14 +8,14 @@ module.exports = function (file) {
     };
     this.initUser = function (user) {
         data[user] = { money: config.bank.startingValue, init: true };
-    }
+    };
     this.getBalance = function (user) {
         return data[user].money
-    },
-        this.addBalance = function (user, inc) {
-            data[user].money += parseInt(inc);
-        };
+    };
+    this.addBalance = function (user, inc) {
+        data[user].money += parseInt(inc);
+    };
     this.save = function () {
         fs.writeFileSync(file, JSON.stringify(data));
-    }
+    };
 }
