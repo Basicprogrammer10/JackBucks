@@ -19,7 +19,9 @@ module.exports = {
                 if (!Bank.user.inDb(msg.author.tag)) Bank.user.init(msg.author.tag);
                 let payOut = Math.floor(Math.random() * 10) + 1;
                 msg.channel.send(common.embedMessage(color.main, '🧭 Work', `Hooray! You got it correct!\n ${payOut} ➜ ${msg.author.tag}`));
-                global.workHashes = global.workHashes.filter(value => { value !== hash });
+                global.workHashes = global.workHashes.filter(value => {
+                    value !== hash
+                });
 
                 Bank.balance.add(msg.author.tag, payOut);
                 Bank.history.add(msg.author.tag, 'Work', [null, msg.author.tag, payOut])
@@ -45,7 +47,8 @@ module.exports = {
             case 2:
                 correct = mathNums[0] + mathNums[1]
                 break
-            case 3: correct = mathNums[0] - mathNums[1]
+            case 3:
+                correct = mathNums[0] - mathNums[1]
                 break
         }
 

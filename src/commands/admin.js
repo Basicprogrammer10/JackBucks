@@ -51,8 +51,7 @@ subCommands = {
         if (doAdd) {
             Bank.balance.add(userTag.tag, amount);
             Bank.history.add(userTag.tag, 'Admin Command Add', [null, userTag.tag, amount])
-        }
-        else {
+        } else {
             Bank.balance.set(userTag.tag, amount);
             Bank.history.add(userTag.tag, 'Admin Command Set', [null, userTag.tag, amount])
         }
