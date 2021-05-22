@@ -7,7 +7,9 @@ global.client = new Discord.Client();
 global.client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
+console.log('🌟 \033[92mStarting!\033[0m')
 for (const file of commandFiles) {
+    console.log('🔃 \033[32mLoading File: \033[36m' + file + '\033[0m')
     const command = require(`./commands/${file}`);
     const cmdName = file.split('.js')[0];
     allCommands.push(cmdName);
@@ -36,6 +38,8 @@ client.on("message", async (msg) => {
         return;
     }
 
+    await client.commands.get(command[0].toLowerCase()).process(msg, command);
+    return
     try {
         await client.commands.get(command[0].toLowerCase()).process(msg, command);
     } catch (e) {
@@ -45,7 +49,6 @@ client.on("message", async (msg) => {
 
 common.loadConfig('config.json');
 
-/* Commands To Add
- * Bet
- * Steal
- */
+// Bet Command?
+// Init User
+// Transaction History

@@ -12,7 +12,10 @@ module.exports = {
 
         if (command.length > 1) {
             if (!client.commands.has(command[1].toLowerCase())) {
-                msg.channel.send(common.embedMessage(color.red, `Error: :neutral_face:`, `\`${cp}${command[1]}\` Is not a command...\nTry: \`${cp}help\``));
+                let bestMatch = common.findBestMatch(command[1], allCommands).bestMatch;
+                let suggestion = (bestMatch.rating !== 0) ? bestMatch.target : 'help';
+                msg.channel.send(common.embedMessage(color.red, `Error: :neutral_face:`,
+                    `\`${cp}${command[1]}\` Is not a command...\nDid you mean: **${cp}${suggestion}** (${Math.round(bestMatch.rating * 100)}%)`));
                 return;
             }
             let commandGet = client.commands.get(command[1].toLowerCase());

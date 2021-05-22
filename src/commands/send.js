@@ -41,8 +41,11 @@ module.exports = {
         }
 
         let sendAmount = Math.round(parseFloat(amount) * 10) / 10;
+        let money = [msg.author.tag, userTag.tag, sendAmount];
         Bank.addBalance(msg.author.tag, -sendAmount);
+        Bank.addHistory(msg.author.tag, 'Sent money', money)
         Bank.addBalance(userTag.tag, sendAmount);
+        Bank.addHistory(userTag.tag, 'Receive money', money)
         Bank.save();
         await Loading.edit(common.embedMessage(color.main, '✅ Success', `This transaction has gone through successfully!!!\n\`${sendAmount}\`${config.bank.currency} ➜ \`${userTag.tag}\``));
     }

@@ -2,6 +2,12 @@
 const common = require('./../common.js');
 const bank = require('./../bank.js')
 const fs = require("fs");
+subCommandsHelp = {
+    help: 'help',
+    add: 'add <@user> <amount>',
+    set: 'set <@user> <amount>',
+    taxday: 'taxday <tax>'
+}
 
 subCommands = {
     help: function (msg, command) {
@@ -10,7 +16,7 @@ subCommands = {
         let numCommands = 0;
 
         commands.forEach(function (item) {
-            working += `${commandPrefix}${item}\n`;
+            working += `${commandPrefix}${subCommandsHelp[item]}\n`;
             numCommands++;
         });
         msg.channel.send(common.embedMessage(color.main, '🧮 Admin Commands [' + numCommands.toString() + ']', `\`\`\`\n${working}\`\`\``));
@@ -19,7 +25,7 @@ subCommands = {
         this.set(msg, command, true);
     },
     set: function (msg, command, doAdd) {
-        let data = JSON.parse(fs.readFileSync(config.data.dataFile).toString());
+        let Bank = new bank(config.data.dataFile);
         let userTag = msg.mentions.users.first();
         let amount = command[3];
         let name = command[2];
@@ -33,29 +39,38 @@ subCommands = {
             msg.channel.send(common.embedMessage(color.red, '🛑 Error', `Uhhh \`${amount}\` is not a number...\nYou may need to check [this](https://en.wikipedia.org/wiki/Number) out`));
             return;
         }
-        if (!bank.isUserInDb(config.data.dataFile, userTag.tag)) {
+        if (!Bank.isUserInDb(userTag.tag)) {
             msg.channel.send(common.embedMessage(color.red, '🛑 Error', `The user \`${userTag.tag}\` is not registered...`));
             return;
         }
 
-        if (doAdd) data[userTag.tag].money += parseInt(amount);
-        else data[userTag.tag].money = parseInt(amount);
-        fs.writeFileSync(config.data.dataFile, JSON.stringify(data));
+        if (doAdd) {
+            Bank.addBalance(userTag.tag, amount);
+            Bank.addHistory(userTag.tag, 'Admin Command Add', [null, userTag.tag, amount])
+        }
+        else {
+            Bank.setBalance(userTag.tag, amount);
+            Bank.addHistory(userTag.tag, 'Admin Command Set', [null, userTag.tag, amount])
+        }
+        Bank.save();
         msg.channel.send(common.embedMessage(color.main, '✅ Success', `This transaction has gone through successfully!!!\n\`${parseInt(amount)}\`${config.bank.currency} ➜ \`${userTag.tag}\``));
     },
     taxday: function (msg, command) {
+        let Bank = new bank(config.data.dataFile);
         let tax = command[2];
         if (!common.isNumeric(tax)) {
             msg.channel.send(common.embedMessage(color.red, '🛑 Error', `Invalid tax amount of\`${tax}\``));
             return;
         }
         msg.channel.send(common.embedMessage(color.main, '🧮 **TAX DAY**', `Everyone pays \`${tax}%\`!!!`))
-        let data = JSON.parse(fs.readFileSync(config.data.dataFile).toString());
         tax = parseFloat(tax) / 100
-        Object.keys(data).forEach((item, index) => {
-            data[item].money = Math.round(data[item].money - (data[item].money * tax) * 10) / 10;
+        Object.keys(Bank.data).forEach((item) => {
+            let money = Bank.getBalance(item);
+            let finalTax = Math.round((money * tax) * 10) / 10
+            Bank.setBalance(item, money - finalTax);
+            Bank.addHistory(item, 'Tax Day!', [item, null, finalTax])
         })
-        fs.writeFileSync(config.data.dataFile, JSON.stringify(data));
+        Bank.save();
     }
 }
 

@@ -22,6 +22,7 @@ module.exports = {
                 global.workHashes = global.workHashes.filter((value) => { value !== hash });
 
                 Bank.addBalance(msg.author.tag, payOut);
+                Bank.addHistory(msg.author.tag, 'Work', [null, msg.author.tag, payOut])
                 Bank.save();
                 return
             }
@@ -47,7 +48,6 @@ module.exports = {
             case 3: correct = mathNums[0] - mathNums[1]
                 break
         }
-        console.log(correct);
 
         let shaSum = crypto.createHash('sha1')
         shaSum.update(correct.toString())

@@ -15,9 +15,10 @@ module.exports = {
             msg.channel.send(common.embedMessage(color.main, "💸 Balance", `\`${userTag.tag}\`'s balance is \`${Bank.getBalance(userTag.tag)}\`${config.bank.currency}`));
             return;
         }
-        if (Bank.getBalance(msg.author.tag) === undefined) {
+        if (!Bank.isUserInDb(msg.author.tag)) {
             msg.channel.send(common.embedMessage(color.main, "💰 Bank", `Your Bank Account has been created!`));
             Bank.initUser(msg.author.tag);
+            Bank.save();
             this.process(msg)
             return
         }
