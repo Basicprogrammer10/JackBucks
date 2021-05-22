@@ -16,13 +16,13 @@ module.exports = {
             }
             if (hash === command[1]) {
                 let Bank = new bank(config.data.dataFile)
-                if (!Bank.isUserInDb(msg.author.tag)) Bank.initUser(msg.author.tag);
+                if (!Bank.user.inDb(msg.author.tag)) Bank.user.init(msg.author.tag);
                 let payOut = Math.floor(Math.random() * 10) + 1;
                 msg.channel.send(common.embedMessage(color.main, '🧭 Work', `Hooray! You got it correct!\n ${payOut} ➜ ${msg.author.tag}`));
-                global.workHashes = global.workHashes.filter((value) => { value !== hash });
+                global.workHashes = global.workHashes.filter(value => { value !== hash });
 
-                Bank.addBalance(msg.author.tag, payOut);
-                Bank.addHistory(msg.author.tag, 'Work', [null, msg.author.tag, payOut])
+                Bank.balance.add(msg.author.tag, payOut);
+                Bank.history.add(msg.author.tag, 'Work', [null, msg.author.tag, payOut])
                 Bank.save();
                 return
             }

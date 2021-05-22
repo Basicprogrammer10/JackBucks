@@ -11,8 +11,8 @@ module.exports = {
         let amount = command[2];
         let name = command[1];
 
-        if (!Bank.isUserInDb(msg.author.tag)) {
-            Bank.initUser(msg.author.tag);
+        if (!Bank.user.inDb(msg.author.tag)) {
+            Bank.user.init(msg.author.tag);
             Bank.save();
             await Loading.edit(common.embedMessage(color.main, '💰', `Your bank account has been created!`));
             await this.process(msg, command);
@@ -31,21 +31,21 @@ module.exports = {
             await Loading.edit(common.embedMessage(color.red, '🛑 Error', `You *cant* send \`${amount}\`${config.bank.currency}`));
             return;
         }
-        if (!Bank.isUserInDb(userTag.tag)) {
+        if (!Bank.user.inDb(userTag.tag)) {
             await Loading.edit(common.embedMessage(color.red, '🛑 Error', `The user \`${userTag.tag}\` is not registered...`));
             return;
         }
-        if (Bank.getBalance(msg.author.tag) < parseInt(amount)) {
-            await Loading.edit(common.embedMessage(color.red, '🛑 Error', `💰💰 Lol you only have \`${Bank.getBalance(msg.author.tag)}\`${config.bank.currency}`));
+        if (Bank.balance.get(msg.author.tag) < parseInt(amount)) {
+            await Loading.edit(common.embedMessage(color.red, '🛑 Error', `💰💰 Lol you only have \`${Bank.balance.get(msg.author.tag)}\`${config.bank.currency}`));
             return;
         }
 
         let sendAmount = Math.round(parseFloat(amount) * 10) / 10;
         let money = [msg.author.tag, userTag.tag, sendAmount];
-        Bank.addBalance(msg.author.tag, -sendAmount);
-        Bank.addHistory(msg.author.tag, 'Sent money', money)
-        Bank.addBalance(userTag.tag, sendAmount);
-        Bank.addHistory(userTag.tag, 'Receive money', money)
+        Bank.balance.add(msg.author.tag, -sendAmount);
+        Bank.history.add(msg.author.tag, 'Sent money', money)
+        Bank.balance.add(userTag.tag, sendAmount);
+        Bank.history.add(userTag.tag, 'Receive money', money)
         Bank.save();
         await Loading.edit(common.embedMessage(color.main, '✅ Success', `This transaction has gone through successfully!!!\n\`${sendAmount}\`${config.bank.currency} ➜ \`${userTag.tag}\``));
     }

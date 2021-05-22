@@ -38,8 +38,6 @@ client.on("message", async (msg) => {
         return;
     }
 
-    await client.commands.get(command[0].toLowerCase()).process(msg, command);
-    return
     try {
         await client.commands.get(command[0].toLowerCase()).process(msg, command);
     } catch (e) {
@@ -50,5 +48,3 @@ client.on("message", async (msg) => {
 common.loadConfig('config.json');
 
 // Bet Command?
-// Init User
-// Transaction History
