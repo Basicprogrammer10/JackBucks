@@ -98,5 +98,9 @@ module.exports = {
             Bank.save();
             if (callback !== undefined) callback(msg);
         }
+    },
+
+    randomArrayIndex: function (array) {
+        return array[Math.floor(Math.random() * array.length)];
     }
 }
