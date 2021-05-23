@@ -1,7 +1,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/Basicprogrammer10/NoseBot">
-    <img src="https://github.com/Basicprogrammer10/SupremeBank/blob/master/Logo.png" alt="Logo" width="240" height="240">
+    <img src="https://github.com/Basicprogrammer10/SupremeBank/blob/master/Logo.png" alt="Logo" width="35%">
   </a>
 
   <h3 align="center">SupremeBank</h3>
