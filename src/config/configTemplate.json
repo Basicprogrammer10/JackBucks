@@ -3,7 +3,7 @@
     "clientId": "",
     "botName": "Supreme Bank",
     "adminId": ["466967710685855744"],
-    "version": "0.1.13",
+    "version": "0.1.15",
     "activity": "?help",
     "commandPrefix": "?",
     "disabledCommands": []
