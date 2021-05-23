@@ -30,19 +30,12 @@ module.exports = {
                 return
             }
             let table = makeTable(Bank, userTag.tag)
-            msg.channel.send(common.embedMessage(color.main, '💹 Transaction History', '```\n' + table.toString() + '```'));
+            msg.channel.send(common.embedMessage(color.main, `💹 Transaction History - ${userTag.tag}`, '```\n' + table.toString() + '```'));
             return;
         }
-        if (!Bank.user.inDb(msg.author.tag)) {
-            msg.channel.send(common.embedMessage(color.main, "💰 Bank", `Your Bank Account has been created!`));
-            Bank.user.init(msg.author.tag);
-            Bank.save();
-            this.process(msg)
-            return
-        }
-
+        common.checkMakeUser(Bank, msg, msg.author.tag)
 
         let table = makeTable(Bank, msg.author.tag)
-        msg.channel.send(common.embedMessage(color.main, '💹 Transaction History', '```\n' + table.toString() + '```'));
+        msg.channel.send(common.embedMessage(color.main, `💹 Transaction History - ${msg.author.tag}`, '```\n' + table.toString() + '```'));
     }
 }

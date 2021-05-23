@@ -45,6 +45,6 @@ client.on("message", async (msg) => {
     }
 });
 
-common.loadConfig('config.json');
+common.loadConfig('config/config.json');
 
 // Bet Command?

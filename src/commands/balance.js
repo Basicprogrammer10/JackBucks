@@ -15,13 +15,7 @@ module.exports = {
             msg.channel.send(common.embedMessage(color.main, "💸 Balance", `\`${userTag.tag}\`'s balance is \`${Bank.balance.get(userTag.tag)}\`${config.bank.currency}`));
             return;
         }
-        if (!Bank.user.inDb(msg.author.tag)) {
-            msg.channel.send(common.embedMessage(color.main, "💰 Bank", `Your Bank Account has been created!`));
-            Bank.user.init(msg.author.tag);
-            Bank.save();
-            this.process(msg)
-            return
-        }
+        common.checkMakeUser(Bank, msg, msg.author.tag)
         msg.channel.send(common.embedMessage(color.main, "💸 Balance", `You Balance is \`${Bank.balance.get(msg.author.tag)}\`${config.bank.currency}`));
     }
 }

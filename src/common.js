@@ -89,5 +89,14 @@ module.exports = {
         let seconds = date_ob.getSeconds();
 
         return  hours + ":" + minutes + " "  + month + "-" + date + "-" + year.toString().substr(2, 2)
+    },
+
+    checkMakeUser: function(Bank, msg, user, callback) {
+        if (!Bank.user.inDb(user)) {
+            msg.channel.send(this.embedMessage(color.main, "💰 Bank", `Your Bank Account has been created!`));
+            Bank.user.init(user);
+            Bank.save();
+            if (callback !== undefined) callback(msg);
+        }
     }
 }
