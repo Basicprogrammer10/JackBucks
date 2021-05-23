@@ -20,8 +20,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f1631c3d-1f57-4ea8-99c6-fbe7c7177b8c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/commands/daily.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/commands/stats.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/commands/stats.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/commands/version.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/commands/version.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/config/configTemplate.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/configTemplate.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/data/bank.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/bank.json" afterDir="false" />
     </list>
@@ -97,7 +99,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1621682870971</updated>
-      <workItem from="1621682873549" duration="33038000" />
+      <workItem from="1621682873549" duration="37082000" />
     </task>
     <servers />
   </component>

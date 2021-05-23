@@ -15,13 +15,16 @@ module.exports = {
                 return
             }
             let bets = 0
+            let daily = 0
             data[userTag.tag].history.forEach(item => {
                 if (item[0].indexOf('Bet') >= 0) bets++;
+                if (item[0] ==='Daily Money!') daily++;
             })
             msg.channel.send(common.embedMessage(color.main, `💸 Stats - ${userTag.tag}`)
                 .addField('Money', `\`${data[userTag.tag].money}\``, true)
                 .addField('Transactions', `\`${data[userTag.tag].history.length}\``, true)
                 .addField('Bets', `\`${bets}\``, true)
+                .addField('Daily', `\`${daily}\``, true)
                 .addField('Join Date', `\`${common.dateTime(data[userTag.tag].history[0][2])}\``, true)
             );
             return
@@ -30,11 +33,13 @@ module.exports = {
         let transactions = 0;
         let supply = 0;
         let bets = 0
+        let daily = 0
         Object.keys(data).forEach(t => {
             supply += data[t].money;
             transactions += data[t].history.length;
             data[t].history.forEach(item => {
                 if (item[0].indexOf('Bet') >= 0) bets++;
+                if (item[0] ==='Daily Money!') daily++;
             })
         })
         msg.channel.send(common.embedMessage(color.main, "💸 Bank Stats")
@@ -42,6 +47,7 @@ module.exports = {
             .addField('Circulating Supply', `\`${supply}\``, true)
             .addField('Transactions', `\`${transactions}\``, true)
             .addField('Total Bets', `\`${bets}\``, true)
+            .addField('Total Daily', `\`${daily}\``, true)
             .addField('Database Size', `\`${fileStats.size}b\``, true)
         );
     }
