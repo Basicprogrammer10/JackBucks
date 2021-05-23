@@ -7,7 +7,7 @@
   <h3 align="center">SupremeBank</h3>
 
 <p align="center">
-      Best Bank Bot
+      Best Bank Bot (B³)
     <br />
     <br />
     <a href="https://github.com/Basicprogrammer10/SupremeBank/issues">Report Bug</a>
