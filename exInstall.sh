@@ -1,6 +1,6 @@
 #!/bin/bash
 
-version="1.0"
+version="1.1"
 gitRepo="https://github.com/Basicprogrammer10/SupremeBank.git"
 packages=(git nodejs npm)
 
@@ -44,7 +44,7 @@ function genConfig() {
     for u in "${opts[@]}"
     do
         colorPrint "$u: " 33 n
-        read -r "$u"
+        read -r "${u?}"
     done
     defaultConfig='{"bot":{"clientId":"'$BotToken'","botName":"Supreme Bank","adminId":["466967710685855744"],"version":"0.16.1","activity":"?help","commandPrefix":"?","disabledCommands":[]},"data":{"dataFile":"data/bank.json"},"bank":{"currency":"'$CurrencyName'","startingValue":100}}'
     if ! command echo "$defaultConfig" > src/config/config.json
@@ -64,7 +64,7 @@ function installNodeModules() {
 
 function askRun() {
     colorPrint "Ready to Start Bot (Y/n): " 33 n
-    read -n1 a
+    read -r -n1 a
     if [[ $a == "" || $a == "Y" || $a == "y" ]]
     then
         cd src || exit
