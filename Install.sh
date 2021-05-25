@@ -1,6 +1,6 @@
 #!/bin/bash
 
-version="1.2"
+version="1.3"
 gitRepo="https://github.com/Basicprogrammer10/SupremeBank.git"
 packages=(git nodejs npm)
 
@@ -88,6 +88,39 @@ function checkRun() {
     fi
 }
 
+function dockerRun() {
+    colorPrint "Checking for Docker" 36 n
+    if ! command -v "docker" &> /dev/null; then
+        basicColorPrint " [NOT FOUND]" 31
+        colorPrint "Go ahed and Install Docker. Then run this script again!" 37
+        exit
+    else
+        basicColorPrint " [FOUND]" 32
+    fi
+    colorPrint "Building Docker Container" 34
+    basicColorPrint "" 35 n
+    sudo docker build . -t basicprogrammer10/supremebank
+    if [ $? != 0 ]; then
+        colorPrint "Error Building Container :/ Try running as root?" 31
+        exit
+    fi
+    colorPrint "Success!" 32
+    colorPrint "You may now run the container with 'sudo docker run -d basicprogrammer10/supremebank'"
+}
+
+function checkForArg() {
+    runArgs=$1
+    length=${#2}
+
+    for i in  $(seq 0 ${#runArgs})
+    do
+        if [[ ${runArgs:$i:$length} == $2 ]]; then
+            return 0
+        fi
+    done
+    return 1
+}
+
 function main() {
     colorPrint "Welcome to Supreme Bank Bot Installer :P (v"$version")" 32
     colorPrint "By Connor Slade\n" 32
@@ -108,6 +141,10 @@ function main() {
     echo "{}" > src/config/config.json
     colorPrint "Data File Created!" 32
 
+    if checkForArg "$* " "--docker"; then
+        dockerRun
+        exit
+    fi
 
     colorPrint "Installing Node Modules" 34
     installNodeModules
@@ -116,4 +153,4 @@ function main() {
     askRun
 }
 
-main
+main "$@"
