@@ -68,7 +68,10 @@ To get a local copy up and running follow these simple steps.
 * [Git](https://git-scm.com/)
 
 ### Installation
-Easy Install: `bash <(curl -s https://raw.githubusercontent.com/Basicprogrammer10/SupremeBank/master/Install.sh`
+Easy Install: 
+```
+bash <(curl -s https://raw.githubusercontent.com/Basicprogrammer10/SupremeBank/master/Install.sh
+```
 
 Not So Easy Install:
 1. Git Clone the Repo (`git clone https://github.com/Basicprogrammer10/SupremeBank.git`)
